@@ -1,0 +1,85 @@
+\chapter{CONCLUSION}
+
+\section{Conclusion}
+
+This project successfully developed MorphAI, an identity-preserving facial
+inpainting system based on the LGNet architecture. The proposed system
+reconstructs masked facial regions while maintaining facial structure, local
+textures, and the identity of the input subject. The pipeline combines facial
+landmark extraction, region-specific mask generation, landmark heatmaps, and
+a five-channel input representation for the LGNet generator.
+
+\noindent The model was trained for five epochs using mixed-precision training on a
+dataset containing more than 16,800 facial images. The training loss
+decreased consistently, with the fifth epoch selected as the final
+convergence checkpoint. Evaluation was performed on 16,800 test samples
+across different facial regions and compared with the LaMa baseline.
+
+\noindent The proposed LGNet achieved an overall PSNR of 40.99 dB, SSIM of 0.9928,
+ArcFace identity score of 0.9819, RMSE$_{log}$ of 0.0069, and FID of 0.1398.
+Compared with LaMa, LGNet provided better structural and identity
+preservation, particularly for challenging regions such as the mouth and
+nose. These results demonstrate that the proposed approach can effectively
+restore facial regions while maintaining the visual characteristics and
+identity of the original face.
+
+\section{Limitations}
+
+Despite the promising results, the system has several limitations:
+
+\begin{itemize}
+    \item The system is primarily designed for 2D facial image inpainting
+    and does not currently reconstruct or represent faces in 3D.
+    
+    \item The current implementation is not designed as a live or
+    real-time video inpainting system and is mainly intended for
+    single-image reconstruction.
+    
+    \item The quality of reconstruction depends on the accuracy of facial
+    landmark detection and the generated region mask.
+    
+    \item Performance may decrease for heavily corrupted regions or
+    facial structures with limited surrounding visual information.
+    
+    \item The model requires GPU resources for efficient inference and
+    training, which may limit deployment on low-resource devices.
+    
+    \item Although ArcFace similarity is used to evaluate identity
+    preservation, the identity score does not guarantee perfect
+    preservation in every reconstructed image.
+\end{itemize}
+
+\section{Future Works}
+
+Based on the findings of this project, several improvements can be explored
+in future work:
+
+\begin{itemize}
+    \item \textbf{3D Facial Reconstruction:} Extend MorphAI from 2D image
+    inpainting to 3D facial reconstruction to model facial geometry and
+    provide more realistic results from different viewpoints.
+    
+    \item \textbf{Real-Time Video Inpainting:} Extend the system to process
+    video streams and reconstruct masked facial regions continuously while
+    maintaining temporal consistency between frames.
+    
+    \item \textbf{Dataset Expansion:} Train the model on larger and more
+    diverse facial datasets containing different poses, lighting
+    conditions, expressions, and degrees of facial occlusion.
+    
+    \item \textbf{Improved Identity Preservation:} Explore stronger
+    identity-aware objectives and modern face-recognition embeddings to
+    further improve preservation of facial identity.
+    
+    \item \textbf{Advanced Generative Models:} Investigate diffusion-based
+    and other modern generative architectures to improve reconstruction
+    quality for complex facial regions.
+    
+    \item \textbf{Mobile and Edge Deployment:} Optimize the model through
+    techniques such as quantization, pruning, or knowledge distillation
+    to enable efficient deployment on resource-constrained devices.
+    
+    \item \textbf{Interactive Reconstruction:} Develop a more flexible
+    interface that allows users to select, adjust, and preview different
+    facial regions before generating the final reconstruction.
+\end{itemize}

@@ -1,0 +1,108 @@
+\chapter{INTRODUCTION}
+        \pagenumbering{arabic}
+        \section{Background Introduction}
+
+
+Facial appearance transformation is an important application of generative deep learning. It can be used for facial image editing, facial reconstruction, and other applications where a modified facial region needs to be generated realistically. Recent advances in deep learning have made it possible to reconstruct missing or masked parts of a face while maintaining the overall appearance and identity of the person.
+
+\noindent A face contains many connected features, such as the eyes, eyebrows, nose, and mouth. When one of these regions is removed or modified, generating a realistic replacement requires the model to understand both the local details of the selected region and its relationship with the rest of the face. Generative models such as Generative Adversarial Networks (GANs), autoencoders, and diffusion models have been widely explored for this type of facial reconstruction and editing. PlasticGAN explored facial changes related to plastic and aesthetic surgery, while Mask-aware Photorealistic Facial Attribute Manipulation used facial masks to control changes in specific facial regions \cite{chandaliya2022plasticgan,sun2021maskaware}.
+
+\noindent Several studies have also explored deep learning methods for facial editing and reconstruction. TransEditor used a Transformer-based GAN for controllable facial editing, while Stitch it in Time used a StyleGAN-based approach for editing real facial videos \cite{xu2022transeditor,tzaban2022stitch}. These studies show that generative models can produce realistic facial changes, but many existing approaches are designed for general facial editing and may require complex processing or high computational resources.
+
+\noindent Facial reconstruction has also been studied for applications related to surgical planning. Fang et al. proposed a deep learning method to predict facial appearance changes from planned changes in facial bone structure \cite{fang2022acmt}. Bini et al. combined image inpainting and depth estimation for facial reconstruction and surgical outcome prediction \cite{bini2025facial}. Similarly, Xu et al. developed a diffusion-based method for restoring facial regions while preserving identity \cite{xu2024diffuse}. These studies show the importance of maintaining facial structure and identity when reconstructing facial images.
+
+\newpage
+\noindent Facial landmarks can provide useful structural information for facial reconstruction. DeepFaceReshaping demonstrated the use of facial landmarks to control facial reshaping \cite{chen2024deepface}. In MorphAI, facial landmarks are extracted using MediaPipe Face Mesh and are used to generate a heatmap that provides additional facial structure information to the model. The system supports reconstruction of selected facial regions, including the left eye, right eye, left eyebrow, right eyebrow, nose, and mouth. It also supports different mask sizes for testing the reconstruction process.
+
+\noindent Based on these ideas, this project proposes \textbf{MorphAI: Predicting Facial Appearance Transformation Using Generative Deep Learning}. The system uses a modified Local-Global Network (LGNet) as the generator to reconstruct masked facial regions. The model receives the masked image together with the mask and facial landmark heatmap as input. During training, a PatchGAN-based discriminator is used with the generator to improve the realism of the reconstructed images. The training process uses reconstruction, perceptual, style, identity, and facial landmark losses to guide the generation process.
+
+\noindent The developed MorphAI application allows a user to upload a facial image, select a facial region or mask type, and generate a reconstructed result. The system provides the original image, masked image, and reconstructed image for comparison. It also calculates image quality and identity-related metrics during evaluation.
+
+
+        \section{Motivation}
+Facial appearance reconstruction is challenging because a realistic result must preserve the important features and identity of the input face while generating the missing or masked regions naturally. Existing facial editing and reconstruction methods use different approaches, including GANs, diffusion models, and landmark-based methods, but many are computationally expensive or are designed for general facial editing rather than controlled facial region reconstruction. These limitations motivate the development of a system that can use facial structural information to guide the reconstruction process. MorphAI addresses this problem by combining facial landmarks extracted using MediaPipe Face Mesh with a modified LGNet-based generative model to reconstruct selected facial regions. The use of landmark information, adversarial learning, and identity-related constraints aims to produce realistic facial reconstructions while maintaining the overall appearance of the input face.
+
+
+        \section{Problem Statement}
+
+Facial appearance reconstruction in MorphAI involves several key challenges:
+
+\begin{itemize}
+
+\item \textbf{Realistic reconstruction:} The missing or masked facial region should look natural and match the surrounding face.
+
+\item \textbf{Identity preservation:} The reconstruction should preserve the important facial characteristics of the original person.
+
+\item \textbf{Facial structure:} Facial features have fixed spatial relationships, so the generated region should be correctly aligned with the rest of the face.
+
+\item \textbf{Different facial regions:} The system needs to reconstruct different regions such as the eyes, eyebrows, nose, and mouth while maintaining a consistent facial appearance.
+
+\item \textbf{Guidance from landmarks:} The masked image alone may not provide enough structural information. Facial landmarks can help the model understand the position and shape of important facial features.
+
+\item \textbf{Realistic image generation:} The generated result should have clear details and appear visually similar to a real face. Adversarial learning helps improve the realism of the reconstructed image.
+
+\item \textbf{Limitations of existing methods:} Many existing facial editing and reconstruction methods require complex processing or high computational resources. MorphAI aims to provide a practical approach using a modified LGNet with facial landmark information and generative learning \cite{xu2024diffuse,xu2022transeditor,tzaban2022stitch}.
+
+\end{itemize}
+
+%         \section{Problem Statement}
+% \begin{itemize}
+%     \item Handwritten Nepali word recognition is challenging due to the complex Devanagari script, which includes conjunct consonants, vowel modifiers, and variations in individual handwriting styles \cite{baral2019handwritten,ghimire2020nepali}.
+%     \item Existing systems based on CNNs or handcrafted features struggle to capture long-range dependencies and sequential context, and the lack of large, diverse Nepali handwriting datasets limits model accuracy and generalization \cite{hasan2023optical,li2023trocr}.
+% \end{itemize}
+
+\section{Objective}
+
+The main objective of this project is:
+
+\begin{itemize}
+\item To develop \textbf{MorphAI}, a generative deep learning system for predicting facial appearance transformation using facial landmarks to guide reconstruction while preserving the identity and structure of the input face.
+\end{itemize}
+
+\clearpage
+\subsection*{Scope Clarification: Reconstruction vs. Surgical Prediction}
+It is important to clarify the distinction between facial image reconstruction and 
+clinical surgical outcome prediction. MorphAI is a deep learning-based facial image 
+inpainting and reconstruction framework: it reconstructs synthetically masked facial 
+regions (such as the eyes, eyebrows, nose, and mouth) using surrounding facial context 
+and landmark-based structural information. The system does not simulate biological 
+tissue deformation, healing processes, anatomical changes, or actual post-operative 
+surgical outcomes. Since the experiments use the CelebA-HQ dataset with synthetically applied masks rather than real clinical pre-operative and post-operative patient data, MorphAI's output should be interpreted as a facial reconstruction result and not as a prediction of how a person's face would look after surgery.
+
+\section{Scope of Project}
+The scope of this project includes:
+\begin{itemize}
+    \item Developing a generative deep learning system for facial region reconstruction (inpainting) using synthetically masked facial images.
+    
+    \item Reconstructing selected facial regions such as the eyes, eyebrows, nose, and mouth from a masked facial image using landmark-conditioned generation.
+    
+    \item Extracting facial landmarks using MediaPipe Face Mesh to provide structural guidance for the reconstruction process.
+    
+    \item Evaluating reconstruction quality and identity preservation using standard image-quality and face-recognition metrics.
+\end{itemize}
+
+\subsection*{Potential Future Applications}
+While MorphAI currently focuses on facial region reconstruction, the approach could be 
+extended to other areas in the future. These are possible directions, not features that 
+have been built or tested:
+
+\begin{itemize}
+    \item \textbf{Facial Image Editing and Restoration:} The same reconstruction approach 
+    could be used to fix damaged or blocked parts of facial images in general, not just 
+    the regions tested in this project.
+    
+    \item \textbf{CCTV/Video Restoration:} With further work, this method could help 
+    reconstruct faces that are partly blocked or hidden in low-quality surveillance footage.
+    
+    \item \textbf{AR/VR and Gaming:} The landmark-based approach could be adapted for 
+    building or completing facial avatars in AR/VR and gaming applications.
+    
+    \item \textbf{Surgical Visualization:} This could be a starting point for future 
+    research into facial visualization tools. However, MorphAI has not been trained or 
+    tested on real clinical data, so it is not ready for actual surgical planning or 
+    predicting surgical outcomes. That would require real before-and-after patient data 
+    and proper clinical testing, which is beyond the scope of this project.
+\end{itemize}
+
+    
+    

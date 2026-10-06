@@ -1,0 +1,158 @@
+\newgeometry{top=1in}
+\pagenumbering{gobble}
+\vspace*{1.3in}
+\begin{center}
+\large{\textbf{CERTIFICATE OF APPROVAL}}
+\end{center}
+\vspace{1cm}
+
+
+\noindent
+This is to certify that this minor project work entitled \textbf{``MorphAI: Predicting Facial Appearance Transformation Using Generative Deep Learning''}, submitted by Kristi Koju (KCE080BCT010), Nishana Budha (KCE080BCT017), Aamod Baral (KCE080BCT025) and Reeshav Khyaju (KCE080BCT028), has been examined and accepted as the partial fulfillment of the requirements for the degree of Bachelor of Computer Engineering. The project was carried out under special supervision and within the time frame prescribed by the syllabus.
+
+
+\vspace{2cm}
+
+\noindent
+\begin{minipage}[t]{0.45\textwidth}
+\centering
+..........................................\\
+\textbf{Er. Surendra KC} \\
+External Examiner \\
+Director of Engineering Infinite Software Services
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+\centering
+
+
+..........................................\\
+\textbf{Er. Anku Jaiswal} \\
+Project Supervisor \\
+Assistant Professor\\
+IoE, Pulchowk Campus \\
+\end{minipage}
+
+\vspace{1.5cm}
+
+\vspace{0.5cm}
+\begin{center}
+..........................................\\
+\textbf{Er. Dinesh Gothe}\\
+Head of Department\\
+Department of Computer and Electronics Engineering\\
+Khwopa College of Engineering
+\end{center}
+\newpage
+
+\pagenumbering{roman}
+\addcontentsline{toc}{section}{Copyright}
+\begin{center}
+    {\Large\bfseries COPYRIGHT\copyright}
+\end{center}
+\vspace{1em}
+\normalsize
+\justify
+The author has agreed that the library of Khwopa College of Engineering may make this report freely available for inspection. Moreover, the author has agreed that permission for extensive copying of this project report for scholarly purposes may be granted by the supervisor who supervised the project work recorded herein or, in their absence, by the Head of the Department where the project report was completed. It is understood that recognition will be given to the author of the report and to the Department of Computer and Electronics Engineering, KhCE, for any use of the material in this project report. Copying, publication, or any other use of this report for financial gain without the approval of the department and the author's written permission is prohibited. Requests for permission to copy or make any other use of the material in this report, in whole or in part, should be addressed to:
+
+\vspace{1.5cm}
+\noindent\textbf{Head of Department} \\
+Department of Computer and Electronics Engineering \\
+Khwopa College of Engineering (KhCE) \\
+Libali-08, Bhaktapur, Nepal
+\newpage
+
+\addcontentsline{toc}{section}{Acknowledgement}
+\begin{center}
+    {\Large\bfseries ACKNOWLEDGEMENT}
+\end{center}
+\vspace{1.2cm}
+\normalsize
+\noindent
+We would like to express our deepest gratitude to our supervisor of the project, \textbf{Er.Anku Jaiswal}, for her immense support and guidance throughout the course of this project. Her insightful advice, expertise, and unwavering support have been crucial to our work's successful completion. This project would not have been possible without her guidance and mentorship.
+
+\noindent We would also like to extend gratitude to our teachers \textbf{Er.Mukesh Kumar Pokharel} and \textbf{Er.Anish Baral} for their constructive feedback and unwavering support throughout the project. The expertise and analytical recommendations gave us fresh viewpoints, which were crucial for improving our project.
+
+\noindent A special thanks to \textbf{Er.Dinesh Gothe} for his encouragement and assistance. We have been greatly inspired by his encouragement, which has kept us dedicated and focused on the project.
+
+\noindent Furthermore, we are grateful to our institution faculty members, and peers for providing us with the necessary resources, facilities, and a conducive learning environment that greatly contributed to our work.
+
+\noindent Finally, we would like to thank everyone who has directly or indirectly assisted us in initiation of our project.
+
+\vspace{1.5cm}
+\begin{tabular}{l@{\hspace{3cm}}l}
+Kristi Koju & KCE080BCT010\\
+Nishana Budha & KCE080BCT017\\
+Aamod Baral & KCE080BCT025\\
+Reeshav Khyaju & KCE080BCT028\\
+\end{tabular}
+\newpage
+
+\addcontentsline{toc}{section}{Abstract}
+\begin{center}
+    {\Large\bfseries ABSTRACT}
+\end{center}
+\vspace{1em}
+\normalsize
+\noindent
+% Devanagari is the primary script used for writing the Nepali language and contains complex character structures, conjunct consonants, and vowel modifiers that make handwritten text recognition a challenging task. This project aims to develop a Transformer-based Optical Character Recognition (OCR) system for recognizing handwritten Nepali words and converting them into digital text.The proposed system adopts a TrOCR-inspired architecture that combines a pretrained Vision Transformer (ViT) encoder with a lightweight custom BERT-based Transformer decoder. The ViT encoder extracts contextual visual representations from handwritten word images, while the decoder, designed with a compact Transformer configuration and cross-attention mechanism, generates the corresponding Nepali word sequence in Unicode format. Both components are integrated using HuggingFace's VisionEncoderDecoderModel framework to enable end-to-end handwritten word recognition.Experimental results demonstrate that the proposed model achieves a Character Error Rate (CER) of 5.43\%, a Word Error Rate (WER) of 16.58\%, and an overall accuracy of 83.42\%, indicating its effectiveness in recognizing complex handwritten Nepali text. The developed system provides a promising approach for digitizing handwritten Nepali documents and supports the preservation and accessibility of Nepali written resources.
+Facial appearance transformation is an important application of generative deep learning that can support facial reconstruction, image editing, and surgical planning. This project aims to develop \textbf{MorphAI}, a generative deep learning system for predicting facial appearance transformation while preserving the identity and structural characteristics of the input face. The proposed system uses a modified Local-Global Network (LGNet) with facial landmark conditioning to reconstruct masked or modified facial regions. MediaPipe Face Mesh is used to extract facial landmarks, which are converted into heatmaps and combined with the masked facial image to provide structural information to the model. The system uses reconstruction, perceptual, style, adversarial, and identity-preservation losses to improve the quality and consistency of the generated facial images. An interactive application allows users to upload an image, select facial regions, and generate the reconstructed facial appearance. The developed MorphAI system provides a promising approach for realistic and identity-aware facial reconstruction and can support future applications in facial image editing and computer-assisted surgical planning.
+
+\vspace{1em}
+\noindent
+\textbf{Keywords}: \textit{Facial Appearance Transformation, Facial Reconstruction, Generative Adversarial Network, Generative Deep Learning, Identity Preservation, LGNet, MediaPipe Face Mesh.}
+
+
+\newpage
+
+\tableofcontents
+\newpage
+
+\addcontentsline{toc}{section}{List of tables}
+\listoftables
+\newpage
+
+\addcontentsline{toc}{section}{List of figures}
+\listoffigures
+\newpage
+\addcontentsline{toc}{section}{List of Symbols and Abbreviation}
+\begin{center}
+    {\Large\bfseries List of Symbols and Abbreviation}
+\end{center}
+\vspace{0.5em}
+\setstretch{1.2}
+\noindent\begin{tabular}{ll}
+\hline
+\textbf{Abbreviation} & \textbf{Full Form} \\
+\hline
+AI      & Artificial Intelligence \\
+AMP     & Automatic Mixed Precision \\
+API     & Application Programming Interface \\
+BERT    & Bidirectional Encoder Representations from Transformers \\
+BOS     & Beginning of Sequence \\
+CNN     & Convolutional Neural Network \\
+CUDA    & Compute Unified Device Architecture \\
+DL      & Deep Learning \\
+EOS     & End of Sequence \\
+FID     & Fr\'echet Inception Distance \\
+FFN     & Feed-Forward Network \\
+GAN     & Generative Adversarial Network \\
+GELU    & Gaussian Error Linear Unit \\
+GPU     & Graphics Processing Unit \\
+IIIT    & International Institute of Information Technology \\
+IoU     & Intersection over Union \\
+L1      & L1 Reconstruction Loss \\
+LaMa    & Large Mask Inpainting \\
+LGNet   & Large-mask Guided Network \\
+LPIPS   & Learned Perceptual Image Patch Similarity \\
+MHA     & Multi-Head Attention \\
+ML      & Machine Learning \\
+MSE     & Mean Squared Error \\
+PSNR    & Peak Signal-to-Noise Ratio \\
+RGB     & Red, Green, Blue \\
+RMSE    & Root Mean Square Error \\
+SSIM    & Structural Similarity Index Measure \\
+UI      & User Interface \\
+VGG     & Visual Geometry Group \\
+\hline
+\end{tabular}

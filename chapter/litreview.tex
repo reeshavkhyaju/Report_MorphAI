@@ -1,0 +1,506 @@
+\chapter{LITERATURE REVIEW}
+
+\section{Literature Review}
+
+\noindent Facial appearance transformation has developed from traditional image editing to deep learning-based methods such as GANs, Transformers, and diffusion models. These methods can reconstruct or modify facial regions, but maintaining the person's identity and natural facial structure is still challenging.
+
+\noindent GAN-based methods such as PlasticGAN and mask-aware facial manipulation have shown good results in facial editing \cite{chandaliya2022plasticgan,sun2021maskaware}. Other methods, including TransEditor and Stitch it in Time, have improved controllable facial editing \cite{xu2022transeditor,tzaban2022stitch}. However, many existing methods require high computational resources or are designed mainly for general facial editing.
+
+\noindent Recent studies have also explored facial reconstruction for surgical planning and appearance prediction \cite{fang2022acmt,bini2025facial}. Diffusion and landmark-based methods have further improved facial restoration and structural control \cite{xu2024diffuse,chen2024deepface}. These studies provide the basis for MorphAI, which uses MediaPipe Face Mesh landmarks and a modified LGNet to reconstruct selected facial regions while preserving facial structure and identity.
+
+
+
+\subsection{Diffuse and Restore: A Region-Adaptive Diffusion Model for Identity-Preserving Blind Face Restoration (2024)}
+
+Xu et al. (2024) proposed a diffusion-based method for restoring degraded facial images while preserving identity. The model uses an Identity Preserving Conditioner (IPC) with a Conditional Diffusion Probabilistic Model (DDPM) to restore facial regions. However, it focuses mainly on face restoration rather than facial appearance transformation or surgical prediction \cite{xu2024diffuse}.
+
+\subsection{PlasticGAN: Holistic Generative Adversarial Network on Face Plastic and Aesthetic Surgery (2022)}
+
+Chandaliya and Nain (2022) proposed PlasticGAN for generating facial appearance changes related to plastic and aesthetic surgery. The model uses a GAN with age and gender information to generate realistic facial transformations. However, the study uses relatively low-resolution images and a limited evaluation setup \cite{chandaliya2022plasticgan}.
+
+\subsection{TransEditor: Transformer-Based Dual-Space GAN for Highly Controllable Facial Editing (2022)}
+
+Xu et al. (2022) introduced TransEditor, which combines a Transformer with StyleGAN2 to provide controlled facial editing. It separates facial structure and appearance into different latent spaces to achieve realistic modifications. However, the method requires latent inversion and considerable computational resources \cite{xu2022transeditor}.
+
+\subsection{Stitch it in Time: GAN-Based Facial Editing of Real Videos (2022)}
+
+Tzaban et al. (2022) proposed a StyleGAN2-based method for editing facial attributes in real videos while maintaining identity and temporal consistency. The method produces smooth facial changes without noticeable flickering. However, it is mainly designed for video editing rather than facial reconstruction or surgical appearance prediction \cite{tzaban2022stitch}.
+
+\subsection{Deep Learning Framework for Facial Reconstruction Outcome Prediction (2025)}
+
+Bini et al. (2025) proposed a deep learning framework for facial reconstruction and computer-assisted surgical planning. The study combines image inpainting and depth estimation and evaluates different models for facial reconstruction. However, the approach does not specifically focus on identity preservation, which is an important aspect of the proposed MorphAI system \cite{bini2025facial}.
+
+
+\subsection{DeepFaceReshaping: Interactive Deep Face Reshaping via Landmark Manipulation (2024)}
+
+Chen et al. (2024) proposed an interactive facial reshaping method based on facial landmark manipulation. The framework combines Graph VAE, Conditional GAN, Transformer, and U-Net to generate realistic facial changes. However, it mainly focuses on 2D facial editing and is not specifically designed for surgical outcome prediction \cite{chen2024deepface}.
+
+\clearpage
+\subsection{Deep Learning-based Facial Appearance Simulation Driven by Surgically Planned Craniomaxillofacial Bony Movement (2022)}
+
+Fang et al. (2022) proposed a deep learning method for simulating facial appearance changes based on surgically planned craniomaxillofacial bone movement. The approach learns the relationship between structural changes and facial appearance. However, it requires specialized patient-specific anatomical data and focuses mainly on craniomaxillofacial surgical simulation \cite{fang2022acmt}.
+
+
+\subsection{Mask-aware Photo Facial Attribute Manipulation (2021)}
+
+Sun et al. (2021) proposed a mask-aware method for controlling facial attribute manipulation. The approach uses masked facial regions to guide the generation process while maintaining realistic facial details. However, it focuses on facial attribute editing rather than facial reconstruction for surgical prediction, and additional constraints are needed to preserve identity and facial details \cite{sun2021maskaware}.
+
+
+\subsection{Research Gap}
+
+Previous studies have shown good results in facial restoration, editing, and surgical appearance prediction. However, most methods focus on general face editing, image restoration, or complex surgical simulation rather than localized facial transformation.
+\newline
+Another issue is identity preservation. A generated face may look realistic but still change the person's identity or facial structure. Some methods also require large computational resources or special 3D patient data, which may not be practical for a simple image-based system.
+\newline
+Therefore, there is a need for a simpler framework that can transform a selected facial region while keeping the person's identity and facial structure. MorphAI addresses this gap by combining MediaPipe Face Mesh landmarks with a modified LGNet model and ArcFace-based identity loss. This allows the system to use facial structure as guidance and generate realistic facial reconstruction using only 2D facial images.
+
+
+\section{Related Theories}
+\subsection{Facial Image Reconstruction}
+
+Facial image reconstruction aims to recover missing or corrupted regions of a face using the surrounding information. In MorphAI, this is treated as a guided facial inpainting problem where a mask indicates the region to be reconstructed.
+
+\noindent The masked image is obtained as:
+
+\begin{equation}
+I_{\text{masked}} = I \odot (1-M)
+\end{equation}
+
+\noindent where $I$ is the original image, $M$ is the binary mask, and $\odot$ denotes element-wise multiplication.
+
+\subsection{Facial Landmark Detection}
+
+Facial landmark detection identifies important points such as the eyes, eyebrows, nose, and mouth. MorphAI uses these points to provide facial structure information and to generate semantic masks and landmark heatmaps.
+
+\subsection{MediaPipe Face Mesh}
+
+MediaPipe Face Mesh is used in MorphAI to extract facial landmarks from input images. The detected landmarks are grouped into facial regions and used for mask generation and structural guidance.
+
+\subsection{Facial Region Masking}
+
+Facial masking identifies the region that needs to be reconstructed. MorphAI uses both semantic facial masks and random rectangular masks. Semantic masks are generated from facial landmarks and can represent regions such as the eyes, eyebrows, nose, and mouth.
+
+\subsection{Generative Adversarial Networks}
+
+Generative Adversarial Networks (GANs) consist of a generator and a discriminator. The generator produces reconstructed images, while the discriminator evaluates whether the generated results appear realistic.
+
+\noindent In MorphAI, adversarial learning helps improve the visual quality and realism of reconstructed facial regions.
+
+\subsection{Generator and Discriminator}
+
+The generator reconstructs the masked facial region using the available image information, mask, and landmark guidance. The discriminator evaluates the generated image against real facial images.
+
+\noindent Together, they encourage the generator to produce realistic facial details and textures.
+
+\subsection{PatchGAN}
+
+PatchGAN evaluates local image patches instead of judging the complete image with a single value. This allows the discriminator to focus on details such as skin texture, eyes, lips, and facial boundaries.
+
+\noindent MorphAI uses a PatchGAN discriminator to improve the local realism of reconstructed facial regions.
+
+\subsection{Local-Global Network (LGNet)}
+
+LGNet uses local and global information to reconstruct missing image regions. The local pathway focuses on details inside the missing region, while the global pathway uses surrounding information to maintain overall consistency.
+
+\noindent MorphAI uses a modified LGNet generator with landmark heatmap guidance. The generator receives the masked image, facial mask, and landmark heatmap:
+
+\begin{equation}
+\hat{I}_{\text{raw}}
+=
+G(I_{\text{masked}},M,H)
+\end{equation}
+
+where $G$ represents the LGNet generator and $H$ represents the landmark heatmap.
+
+\subsection{Loss Functions}
+
+MorphAI uses multiple loss components to guide facial reconstruction and
+preserve visual quality, texture, identity, and facial structure. The main
+loss components are:
+
+\begin{itemize}
+
+    \item \textbf{L1 Loss:} Measures the pixel-level difference between the
+    reconstructed image and the target image. It helps the model produce
+    accurate pixel-level reconstruction.
+
+    \begin{equation}
+    \mathcal{L}_{L1} =
+    \frac{1}{CHW}
+    \sum_{c,h,w}
+    \left|
+    \hat{I}_{c,h,w} - I_{c,h,w}
+    \right|
+    \end{equation}
+
+    \item \textbf{Perceptual Loss:} Compares deep feature representations
+    of the reconstructed and target images. It helps preserve important
+    facial structures and visual details.
+
+    \begin{equation}
+    \mathcal{L}_{perceptual} =
+    \sum_j
+    \frac{1}{C_jH_jW_j}
+    \left|
+    \phi_j(\hat{I})-\phi_j(I)
+    \right|_1
+    \end{equation}
+
+    \item \textbf{Style Loss:} Compares feature correlations between the
+    reconstructed and target images to maintain similar texture and
+    appearance.
+
+    \begin{equation}
+    \mathcal{L}_{style} =
+    \sum_j
+    \frac{1}{C_j^2}
+    \left|
+    G_j(\hat{I})-G_j(I)
+    \right|_1
+    \end{equation}
+
+    \item \textbf{Identity Loss:} Encourages the reconstructed face to
+    preserve the identity of the input subject using facial feature
+    embeddings and cosine similarity.
+
+    \begin{equation}
+    \mathcal{L}_{identity} =
+    1-
+    \frac{
+    f(\hat{I})\cdot f(I)
+    }{
+    \|f(\hat{I})\|_2\|f(I)\|_2
+    }
+    \end{equation}
+
+    \item \textbf{Facial Landmark Loss:} Encourages the reconstructed
+    image to maintain the correct position of important facial features.
+
+    \begin{equation}
+    \mathcal{L}_{landmark} =
+    \frac{1}{N}
+    \sum_{k=1}^{N}
+    \operatorname{Wing}
+    \left(
+    \operatorname{Det}(\hat{I})_k-
+    \operatorname{Det}(I)_k
+    \right)
+    \end{equation}
+
+    \item \textbf{Adversarial Loss:} Encourages the generator to produce
+reconstructions that the PatchGAN discriminator cannot distinguish from
+real facial images, improving perceptual realism and local texture detail.
+
+% % --- if your discriminator uses BCE (vanilla GAN) ---
+% \begin{equation}
+% \mathcal{L}_{\text{adv}} = \mathbb{E}_{I}\left[\log D(I)\right] +
+% \mathbb{E}_{\hat{I}}\left[\log(1 - D(\hat{I}))\right]
+% \label{eq:adv-loss}
+% \end{equation}
+
+% --- OR if your discriminator uses MSE (LSGAN, more typical for PatchGAN) ---
+\begin{equation}
+\mathcal{L}_{\text{adv}} = \mathbb{E}_{I}\left[(D(I) - 1)^2\right] +
+\mathbb{E}_{\hat{I}}\left[D(\hat{I})^2\right]
+\label{eq:adv-loss}
+\end{equation}
+
+where $D$ denotes the PatchGAN discriminator, $I$ the ground-truth facial
+image, and $\hat{I}$ the reconstructed image generated by LGNet.
+
+\end{itemize}
+
+\subsection{Identity Preservation}
+
+Identity preservation ensures that the reconstructed face remains visually
+consistent with the input subject. MorphAI uses facial embeddings and
+ArcFace-based similarity during evaluation to measure identity preservation.
+
+\subsection{Boundary Blending and Post-processing}
+The reconstructed region may contain visible boundaries between the generated
+and original areas. MorphAI therefore applies blending during post-processing
+to create a smoother transition between the reconstructed region and the
+surrounding face.
+\noindent For alpha feathering:
+\begin{equation}
+\alpha = M * G_{\sigma}
+\end{equation}
+\noindent where $G_{\sigma}$ represents a Gaussian kernel. The final blended image is
+given by:
+\begin{equation}
+I_{\text{final}}
+=
+\alpha\hat{I}
++
+(1-\alpha)I_{\text{bg}}
+\end{equation}
+\noindent where $\hat{I}$ is the reconstructed image and $I_{\text{bg}}$ is the original
+background.
+
+\noindent In addition to alpha feathering, MorphAI also supports \textbf{seamless 
+Poisson cloning} as a blending option. Instead of blending pixel values directly, 
+Poisson blending matches the gradients of the reconstructed region to the 
+surrounding image, producing smoother colour and illumination consistency across 
+the boundary at a higher computational cost than alpha feathering. Both options 
+are available to the user in the MorphAI interface, allowing a trade-off between 
+blending speed and visual smoothness.
+
+\subsection{Evaluation Metrics}
+
+MorphAI evaluates facial reconstruction using pixel-level, structural,
+perceptual, realism, and identity-based metrics:
+
+\begin{itemize}
+
+\item \textbf{Peak Signal-to-Noise Ratio (PSNR):} Measures pixel-level
+similarity between the reconstructed and target images. Higher values
+indicate better reconstruction quality.
+
+\item \textbf{Structural Similarity Index Measure (SSIM):} Measures
+structural similarity between the reconstructed and target images.
+Higher values indicate better preservation of facial structure.
+
+\item \textbf{Learned Perceptual Image Patch Similarity (LPIPS):}
+Measures perceptual similarity using deep image features. Lower values
+indicate greater perceptual similarity.
+
+\item \textbf{Fréchet Inception Distance (FID):} Compares the feature
+distributions of reconstructed and real images. Lower values generally
+indicate better visual realism.
+
+\item \textbf{Identity Similarity:} Measures how well the reconstructed
+face preserves the identity of the input subject using facial embeddings
+and cosine similarity. Higher values indicate better identity
+preservation. ArcFace is used for identity evaluation.
+
+\item \textbf{Root Mean Square Error (RMSE):} Measures the pixel-level
+reconstruction error between the reconstructed and target images.
+Lower values indicate smaller reconstruction errors.
+
+\item \textbf{RMSE-log:} Measures reconstruction error after applying a
+logarithmic transformation to the reconstructed and ground-truth images,
+reducing the influence of large pixel differences. Lower values indicate
+smaller reconstruction errors. The full mathematical formulation is given
+in Section~\ref{sec:rmse-log} (Eq.~\ref{eq:rmse-log}).
+
+\end{itemize}
+
+
+
+\subsection{Dataset}
+
+\subsubsection{Dataset Description}
+
+MorphAI uses the CelebA-HQ dataset for facial image reconstruction. The
+dataset contains high-quality facial images with diverse identities,
+expressions, poses, and appearances. The images are used as ground-truth
+facial images for training and evaluation.
+
+\noindent During training, facial regions are artificially masked so that
+the model learns to reconstruct the missing areas. The images are resized
+to $256 \times 256$ pixels to match the input requirements of the LGNet
+generator.
+
+\noindent It is important to note that CelebA-HQ contains only single, unpaired facial images -- 
+it does not provide real before-and-after surgical image pairs. The facial reconstruction 
+task used to train and evaluate MorphAI is created artificially: selected facial regions 
+are synthetically masked on an otherwise complete image, and the original unmasked image 
+serves as the ground truth for reconstruction. No real pre-operative or post-operative 
+surgical patient dataset is used anywhere in this project. This synthetic masking 
+approach approximates a region-completion task; it does not model or represent actual 
+surgical tissue change.
+
+\subsubsection{Dataset Preprocessing}
+
+The facial images are resized to $256 \times 256$ pixels and processed
+before being provided to the model. Facial landmarks are extracted using
+MediaPipe Face Mesh and are used to provide structural information about
+the face.
+
+\noindent The RGB image, binary facial mask, and landmark heatmap are
+combined to form a five-channel input:
+
+\begin{equation}
+3\text{ RGB channels} + 1\text{ mask channel} + 1\text{ heatmap channel}
+= 5\text{ channels}.
+\end{equation}
+
+\noindent Therefore, the input to the LGNet generator has the dimensions
+$5 \times 256 \times 256$.
+
+\subsubsection{Dataset Split}
+
+The CelebA-HQ dataset is divided into training, validation, and test sets.
+The training set is used to optimize the model, the validation set is used
+to monitor training performance, and the test set is used for final
+evaluation.
+
+\subsubsection{Mask Generation}
+
+MorphAI uses facial region masks to simulate missing parts of the face.
+The masks are generated for different facial regions, including:
+
+\begin{itemize}
+    \item \textbf{Eyes and eyebrows}
+    \item \textbf{Nose}
+    \item \textbf{Mouth}
+\end{itemize}
+
+\noindent These masks allow the model to learn how to reconstruct different
+parts of the face from the available surrounding information.
+
+\subsubsection{Data Representation}
+
+Each training sample consists of an RGB facial image, a binary mask, and a
+landmark heatmap. These components are combined as:
+
+\begin{equation}
+X = [I_{\text{RGB}}, M, H]
+\end{equation}
+
+\noindent where $I_{\text{RGB}}$ represents the facial image, $M$ represents
+the facial mask, and $H$ represents the landmark heatmap.
+
+
+\subsubsection{Dataset Challenges}
+
+The main challenges associated with using CelebA for MorphAI include:
+
+\begin{itemize}
+    \item \textbf{Initially:} During facial alignment of the CelebA
+    images, inaccurate landmark detection occasionally caused improper
+    alignment and cropping, particularly around the chin region.
+    
+    \item \textbf{Image Alignment:} Facial images require proper alignment
+    to maintain consistent facial structure and improve the reconstruction
+    process.
+
+    \item \textbf{Image Resizing:} Images must be resized to the required
+    $256 \times 256$ resolution while preserving important facial details.
+
+    
+
+    \item \textbf{Synthetic Masking:} The dataset does not provide actual
+    before-and-after facial surgery pairs, so missing regions are created
+    artificially.
+
+    \item \textbf{Facial Variation:} Differences in pose, expression, and
+    appearance can make facial reconstruction more challenging.
+
+    \item \textbf{Lighting Variation:} Changes in illumination may affect
+    the appearance and reconstruction of facial regions.
+
+    \item \textbf{Landmark Accuracy:} Incorrect facial landmarks can affect
+    the generated landmark heatmap and reconstruction quality.
+
+\end{itemize}
+
+
+
+% \newpage
+\section{Review Matrix}
+
+\setlength{\LTpre}{0pt}
+\setlength{\LTpost}{0pt}
+\renewcommand{\arraystretch}{1.3}
+\noindent Table~\ref{tab:review-matrix} presents a summary of the literature reviewed for the MorphAI project, highlighting key methodologies, datasets, and limitations in facial appearance transformation and reconstruction.
+
+
+% \noindent Table~\ref{tab:review-matrix} presents a summary of the literature reviewed in this chapter. It consolidates key studies, their methodologies, and contributions, providing a clear overview of the evolution of handwritten text recognition techniques.
+
+
+
+
+\begin{longtable}[l]{|c|p{3.2cm}|p{3.2cm}|p{2.5cm}|p{4.0cm}|}
+
+\caption{Summary of Reviewed Literature for MorphAI}
+\label{tab:review-matrix} \\
+
+\hline
+
+\textbf{S.N.} &
+\textbf{Author(s) \& Year} &
+\textbf{Method} &
+\textbf{Dataset} &
+\textbf{Limitations} \\ \hline
+
+\endfirsthead
+
+\multicolumn{5}{c}%
+{\textbf{Table \thetable\ (continued)}} \\ \hline
+
+\textbf{S.N.} &
+\textbf{Author(s) \& Year} &
+\textbf{Method} &
+\textbf{Dataset} &
+\textbf{Limitations} \\ \hline
+
+\endhead
+
+\hline
+\multicolumn{5}{r}{\textit{Continued on next page}} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+1 &
+Xu et al. (2024) \cite{xu2024diffuse} \newline
+\textit{Diffuse and Restore} &
+Identity Preserving Conditioner (IPC) + Conditional DDPM &
+FFHQ, CelebA-Test &
+Designed for face restoration rather than surgical prediction; diffusion-based models require high computational resources. \\ \hline
+
+2 &
+Chandaliya and Nain (2022) \cite{chandaliya2022plasticgan} \newline
+\textit{PlasticGAN: Holistic Generative Adversarial Network on Face Plastic and Aesthetic Surgery} &
+GAN with age and gender conditioning &
+CACD, UTKFace, CLF, Adience &
+Uses a small evaluation dataset and relatively low image resolution ($128\times128$); based on an older GAN architecture. \\ \hline
+
+3 &
+Xu et al. (2022) \cite{xu2022transeditor} \newline
+\textit{TransEditor} &
+StyleGAN2 + Transformer + Dual Latent Space &
+FFHQ, CelebA-HQ &
+Requires latent inversion and high GPU memory; performance can be affected by large pose variations. \\ \hline
+
+4 &
+Tzaban et al. (2022) \cite{tzaban2022stitch} \newline
+\textit{Stitch it in Time} &
+StyleGAN2-based GAN &
+FFHQ &
+Designed primarily for facial video editing rather than surgical prediction and requires considerable computational resources. \\ \hline
+
+5 &
+Bini et al. (2025) \cite{bini2025facial} \newline
+\textit{AI-Based Facial Reconstruction for Surgical Outcome Prediction} &
+LGNet + DepthPro &
+FFHQ, C3I-SynFace &
+Uses benchmark datasets instead of real patient data; healing processes and tissue deformation are not modeled. \\ \hline
+
+6 &
+Chen et al. (2024) \cite{chen2024deepface} \newline
+\textit{DeepFaceReshaping} &
+Graph VAE + Conditional GAN + Transformer + U-Net &
+CelebA-HQ &
+Limited to 2D facial editing and mainly frontal faces; not specifically designed for clinical surgical prediction. \\ \hline
+
+7 &
+Fang et al. (2022) \cite{fang2022acmt} \newline
+\textit{Deep Learning-based Facial Appearance Simulation Driven by Surgically Planned Craniomaxillofacial Bony Movement} &
+Attentive Correspondence assisted Movement Transformation Network (ACMT-Net) &
+Patient-specific facial and bony structure data &
+Focuses on facial appearance prediction driven by surgically planned bony movement; requires specialized anatomical data and is mainly intended for craniomaxillofacial surgical simulation. \\ \hline
+
+8 &
+Sun et al. (2021) \cite{sun2021maskaware} \newline
+\textit{Mask-aware Photorealistic Facial Attribute Manipulation} &
+Mask-Adversarial Autoencoder (M-AAE): VAE + GAN &
+Facial attribute manipulation datasets &
+Focuses on facial attribute manipulation rather than surgical prediction; additional supervision is required to maintain identity and facial details. \\ \hline
+
+\end{longtable}
+
+
+

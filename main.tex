@@ -1,0 +1,110 @@
+%Khwopa college of Engineering Latex Template
+%Prepared by Mukesh Kumar Pokharel for Project Proposal as references.
+\usepackage{tocloft}
+% Increase the second argument (the label width) so numbers like "2.1.10" fit cleanly
+\documentclass[12pt, a4paper, oneside, openany]{report}
+
+% ── Encoding ──────────────────────────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+
+% ── Page Layout ───────────────────────────────────────────────────────────────
+\usepackage[left=1.2in, right=1in, top=1.2in, bottom=1in, 
+            headheight=6pt, a4paper]{geometry}
+
+% ── Graphics & Figures ────────────────────────────────────────────────────────
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{float}
+
+% ── Math ──────────────────────────────────────────────────────────────────────
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{setspace}
+
+% ── Tables ────────────────────────────────────────────────────────────────────
+\usepackage{array}
+\usepackage{longtable}
+
+% ── Text & Formatting ─────────────────────────────────────────────────────────
+\usepackage{ragged2e}
+\usepackage{lipsum}
+\usepackage{emptypage}
+\let\cleardoublepage\clearpage 
+\usepackage{placeins}
+\setlength{\parskip}{0pt}
+\renewcommand{\baselinestretch}{1.5}
+\raggedbottom
+\usepackage{cleveref}
+
+% ── Bibliography ──────────────────────────────────────────────────────────────
+\usepackage{cite}
+
+% ── Section Title Formatting ──────────────────────────────────────────────────
+\usepackage{titlesec}
+
+\titleformat{\chapter}[display]
+    {\centering\normalfont\large\bfseries}
+    {\MakeUppercase{\chaptertitlename} \thechapter}{2pt}{\Large}
+\titlespacing{\chapter}{0pt}{0pt}{4pt}
+
+\titleformat{\section}
+    {\normalfont\large\bfseries}{\thesection}{1em}{}
+
+\titleformat{\subsection}
+    {\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\titleformat{\subsubsection}
+    {\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+% ── TOC Depth ─────────────────────────────────────────────────────────────────
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+% ── Hyperref LAST — removes red boxes, enables clickable TOC ──────────────────
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=false,
+    pdfborder={0 0 0},
+    linkbordercolor={0 0 0},
+    citebordercolor={0 0 0},
+    urlbordercolor={0 0 0}
+}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\begin{document}
+\noindent
+\let\cleardoublepage\clearpage
+
+    % ── Front Matter ──────────────────────────────────────────────────────────
+    \input{templatetitle}
+    \input{intro}
+
+    % ── Chapters ──────────────────────────────────────────────────────────────
+    \input{chapter/chapter_1}
+    \input{chapter/litreview}
+    \input{chapter/METHODOLOGY}
+    \input{chapter/System_Design}
+    \input{chapter/Result and discussion}
+    \input{chapter/Conclusion}
+
+    % ── References ────────────────────────────────────────────────────────────
+    \newpage
+    \nocite{xu2024diffuse,
+        chandaliya2022plasticgan,
+        xu2022transeditor,
+        tzaban2022stitch,
+        bini2025facial,
+        chen2024deepface,
+        fang2022acmt,
+        sun2021maskaware
+        }
+    \renewcommand{\bibname}{REFERENCES}
+    \bibliographystyle{IEEEtran}
+    \bibliography{reference}
+    \addcontentsline{toc}{chapter}{REFERENCES}
+
+    % ── Appendix ──────────────────────────────────────────────────────────────
+    \clearpage
+    \appendix
+    \input{appendix}
+
+\end{document}
